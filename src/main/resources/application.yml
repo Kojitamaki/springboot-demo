@@ -5,9 +5,7 @@ mybatis:
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 server:
-  port: 8989
-
-
+  port: 03
 
 spring:
   datasource:
