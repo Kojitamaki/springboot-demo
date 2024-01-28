@@ -1,0 +1,17 @@
+mybatis:
+  mapper-locations: classpath:mappers/*xml
+  type-aliases-package: com.koji.pojo
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+server:
+  port: 8080
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://47.109.95.37:9876/tlias
+    username: root
+    password: 1234
+logging:
+  config: classpath:logback.xml
+

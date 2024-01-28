@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.koji.mapper.EmpMapper">
+    <!--    <select id="getEmps" resultType="com.koji.pojo.Emp">-->
+    <!--        select id, username, password, name, gender, image, job, entrydate, dept_id, create_time, update_time from emp-->
+    <!--        <where>-->
+    <!--            <if test="a.name != null and a.name != '' ">-->
+    <!--                 name = #{a.name}-->
+    <!--            </if>-->
+    <!--            <if test="a.gender != null">-->
+    <!--                and gender = #{a.gender}-->
+    <!--            </if>-->
+    <!--            <if test="a.begin != '' and a.end == ''"><![CDATA[-->
+    <!--                and entrydate >= #{a.begin}-->
+    <!--            ]]></if>-->
+    <!--            <if test="a.begin == '' and a.end != ''">-->
+    <!--                <![CDATA[-->
+    <!--                and entrydate<= #{a.end} ]]>-->
+    <!--            </if>-->
+    <!--            <if test="a.begin != '' and a.end != ''">-->
+    <!--                and entrydate between #{a.begin} and #{a.end}-->
+    <!--            </if>-->
+    <!--        </where>-->
+    <!--        limit #{pageStart}, #{a.pageSize};-->
+    <!--    </select>-->
+
+    <!--    <select id="count" resultType="java.lang.Integer">-->
+    <!--        select count(*) from emp-->
+    <!--        <where>-->
+    <!--            <if test="a.name != null and a.name != '' ">-->
+    <!--                name = #{a.name}-->
+    <!--            </if>-->
+    <!--            <if test="a.gender != null">-->
+    <!--                and gender = #{a.gender}-->
+    <!--            </if>-->
+    <!--            <if test="a.begin != '' and a.end == ''"><![CDATA[-->
+
+    <!--                and create_time >= #{a.begin}-->
+    <!--            ]]></if>-->
+    <!--            <if test="a.begin == '' and a.end != ''">-->
+    <!--                <![CDATA[-->
+    <!--                and create_time<= #{a.end} ]]>-->
+    <!--            </if>-->
+    <!--            <if test="a.begin != '' and a.end != ''">-->
+    <!--                and create_time between #{a.begin} and #{a.end}-->
+    <!--            </if>-->
+    <!--        </where>-->
+    <!--    </select>-->
+    <select id="list" resultType="com.koji.pojo.Emp">
+        select id, username, password, name, gender, image, job, entrydate, dept_id, create_time, update_time from emp
+        <where>
+            <if test="name != null and name != '' ">
+                name like concat("%", #{name}, "%")
+            </if>
+            <if test="gender != '' and gender != null">
+                and gender = #{gender}
+            </if>
+            <if test="begin != null and end == null"><![CDATA[
+                and entrydate >= #{begin}
+            ]]></if>
+            <if test="begin == null and end != null">
+                <![CDATA[
+                and entrydate<= #{end} ]]>
+            </if>
+            <if test="begin != null and end != null">
+                and entrydate between #{begin} and #{end}
+            </if>
+        </where>
+    </select>
+
+    <delete id="delete">
+        delete
+        from emp
+        where id in
+        <foreach collection="arg0" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into emp(username, name, gender, image, job, entrydate, dept_id, create_time, update_time)
+        values (#{username},#{name},#{gender},#{image},#{job},#{entrydate},#{deptId},#{createTime},#{updateTime})
+    </insert>
+</mapper>
