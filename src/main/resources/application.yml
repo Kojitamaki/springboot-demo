@@ -5,7 +5,7 @@ mybatis:
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 server:
-  port: 8080
+  port: 77
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
