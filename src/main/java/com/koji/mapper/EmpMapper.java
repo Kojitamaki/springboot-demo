@@ -38,4 +38,10 @@ public interface EmpMapper {
     void delete(List<Integer> ids);
 
     void insert(Emp emp);
+
+
+    @Select("select * from emp where id = #{id}")
+    Emp getById(Integer id);
+
+    void update(Emp emp);
 }
