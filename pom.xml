@@ -24,6 +24,12 @@
             <version>2.2.2</version>
         </dependency>
 
+        <!--  使得@ConfigurationProperties注解的实体类，在配置文件中自动补全      -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+        </dependency>
+
         <!--pageHelper分页插件-->
         <dependency>
             <groupId>com.github.pagehelper</groupId>
