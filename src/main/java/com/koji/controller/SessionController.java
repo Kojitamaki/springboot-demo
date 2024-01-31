@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * 1. @ClassName SessionController
@@ -45,4 +46,27 @@ public class SessionController {
         }
         return Result.success();
     }
+
+
+    // 设置session
+    @GetMapping("/s1")
+    public Result session1(HttpServletRequest request){
+        // 获取会话的Session，没有的话会自动创建一个
+        HttpSession session = request.getSession();
+        log.info("HttpSession-s1 : {}", session.hashCode());
+        session.setAttribute("loginUser", "koji"); // 向session中存储数据
+        return Result.success();
+    }
+
+    // 获取session
+    @GetMapping("/s2")
+    public Result session2(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        log.info("HttpSession-s2 : {}", session.hashCode());
+        Object loginUser = session.getAttribute("loginUser");
+        log.info("loginUser: {}", loginUser);
+        return Result.success();
+
+    }
+
 }
