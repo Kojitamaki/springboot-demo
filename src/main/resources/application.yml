@@ -19,3 +19,8 @@ spring:
       max-request-size: 100MB
 logging:
   config: classpath:logback.xml
+
+Jwt:
+  config:
+    signKey: koji
+    expire: 43200000

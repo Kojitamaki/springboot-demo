@@ -29,7 +29,7 @@
     </appender>
 
     <!-- 设置日志输出级别 -->
-    <root level="debug">
+    <root level="info">
         <appender-ref ref="CONSOLE" />
     </root>
     <logger name="com.koji.controller" level="debug">
