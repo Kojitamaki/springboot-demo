@@ -38,5 +38,9 @@
     <logger name="com.zaxxer.hikari" level="info"  additivity = "false">
         <appender-ref ref="CONSOLE"></appender-ref>
     </logger>
+    <!-- spring事务管理日志输出级别 -->
+    <logger name="org.springframework.jdbc.support.JdbcTransactionManager" level="debug"  additivity = "false">
+        <appender-ref ref="CONSOLE"></appender-ref>
+    </logger>
 
 </configuration>
