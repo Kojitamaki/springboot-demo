@@ -2,6 +2,7 @@ package com.koji.mapper;
 
 import com.koji.pojo.Emp;
 import com.koji.pojo.GetEmpsReq;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -47,4 +48,7 @@ public interface EmpMapper {
 
     @Select("select * from emp where username = #{username} and password = #{password} ")
     Emp getByUsernameAndPassword(Emp emp);
+
+    @Delete("delete from emp where dept_id = #{deptId}")
+    void deleteById(Integer deptId);
 }

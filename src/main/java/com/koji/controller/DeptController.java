@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.metadata.PostgresCallMetaDataProvider;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -45,9 +46,9 @@ public class DeptController {
     * */
 
     @DeleteMapping("/{id}")
-    public Result delete(@PathVariable Integer id){
+    public Result delete(@PathVariable Integer id, HttpServletRequest request){
         log.info("根据id删除部门：{}",id);
-        deptService.delete(id);
+        deptService.delete(id, request);
         return Result.success();
     }
 

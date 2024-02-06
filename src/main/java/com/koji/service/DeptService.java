@@ -2,6 +2,7 @@ package com.koji.service;
 
 import com.koji.pojo.Dept;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ import java.util.List;
 public interface DeptService {
     List<Dept> list();
 
-    void delete(Integer id);
+    void delete(Integer id, HttpServletRequest request);
 
     void add(Dept dept);
 

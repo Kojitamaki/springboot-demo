@@ -1,12 +1,19 @@
 package com.koji.service.imp;
 
 import com.koji.mapper.DeptMapper;
+import com.koji.mapper.EmpMapper;
 import com.koji.pojo.Dept;
+import com.koji.pojo.DeptLog;
 import com.koji.pojo.Emp;
+import com.koji.service.DeptLogService;
 import com.koji.service.DeptService;
+import com.koji.utils.JwtUtils;
+import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -23,6 +30,12 @@ public class DeptServiceImpl implements DeptService {
     @Autowired
     private DeptMapper deptMapper;
 
+    @Autowired
+    private EmpMapper empMapper;
+
+    @Autowired
+    private DeptLogService deptLogService;
+
     @Override
     public List<Dept> list() {
         List<Dept> list = deptMapper.list();
@@ -30,8 +43,21 @@ public class DeptServiceImpl implements DeptService {
     }
 
     @Override
-    public void delete(Integer id) {
-        deptMapper.delete(id);
+    @Transactional(rollbackFor = Exception.class)  // 开启spring事务管理，同时回滚策略为：任何异常都回滚
+    public void delete(Integer id, HttpServletRequest httpServletRequest) {
+        try {
+            deptMapper.delete(id);
+            int i = 1/0;
+            empMapper.deleteById(id);  // 删除部门下的所有员工
+        } finally {
+            String token = httpServletRequest.getHeader("token");
+            Claims claims = JwtUtils.parseJWT(token);
+            DeptLog deptLog = DeptLog.builder()
+                    .createTime(LocalDateTime.now())
+                    .description("执行了解散部门操作，此次解散的是" + id + "号部门, 操作来自于:" + claims.get("name"))
+                    .build();
+            deptLogService.insertLog(deptLog);
+        }
     }
 
     @Override

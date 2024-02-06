@@ -19,8 +19,6 @@ spring:
       max-request-size: 100MB
 logging:
   config: classpath:logback.xml
-  level:
-    org.springframework.jdbc.support.JdbcTransactionManager: debug
 
 Jwt:
   config:

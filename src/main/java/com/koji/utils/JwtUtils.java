@@ -42,7 +42,7 @@ public class JwtUtils {
 
     /**
      * 解析JWT令牌
-     *
+     * 如果解析过程中出现异常，说明令牌被篡改或失效
      * @param jwt JWT令牌
      * @return JWT第二部分负载 payload 中存储的内容
      */
